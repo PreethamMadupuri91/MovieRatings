@@ -14,12 +14,17 @@ from ratings.models import Ratings
 
 @csrf_exempt
 def index(request):
+
     if request.method == "POST":
         selected_movie = request.POST.get("Movies")
         rating = request.POST.get("star")
         r = Ratings(movie_name=selected_movie, ratings=rating)
         r.save()
         avg_rating = Ratings.objects.filter(movie_name=selected_movie).aggregate(Avg('ratings'))
+
+
+    if request.method == "GET":
+        avg_rating = Ratings.objects.filter(movie_name="Baasha").aggregate(Avg('ratings'))
 
     text = "<body style=background-color:white;><h1>Hello, world. Welcome to the Movie Ratings Page</h1>" \
            "<!DOCTYPE html>" \
@@ -93,7 +98,7 @@ def index(request):
            "<br>" \
            "</br>" \
            "<p><b>Avg Rating </b></p>" \
-           +str(avg_rating)+  \
+           +str(avg_rating)+ \
            "<br></br>" \
            "<input type='submit'>" \
            "</form>" \
