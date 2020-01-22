@@ -24,7 +24,7 @@ def index(request):
 
 
     if request.method == "GET":
-        avg_rating = Ratings.objects.filter(movie_name="Baasha").aggregate(Avg('ratings'))
+        avg_rating = ""
 
     text = "<body style=background-color:white;><h1>Hello, world. Welcome to the Movie Ratings Page</h1>" \
            "<!DOCTYPE html>" \
